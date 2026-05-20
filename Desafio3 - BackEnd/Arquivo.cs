@@ -84,6 +84,8 @@ namespace Desafio3___BackEnd
 
                 if (precoD < 0) throw new PrecoNegativoException();
 
+                // teste teste
+
                 lista.Add(new Produtos(nome, precoD, categoria, extra));
             }
             return lista;
