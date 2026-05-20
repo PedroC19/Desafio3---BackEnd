@@ -109,6 +109,12 @@ namespace Desafio3___BackEnd
                     {
                         if (palavra == item.Nome)
                         {
+                            if(double.Parse(novoPreco) < 0)
+                            {
+                                Console.WriteLine("Preço não pode ser negativo");
+                                break;
+                            }
+
                             var aux = 0.0;
                             aux = item.Preco;
                             item.Preco = double.Parse(novoPreco);
