@@ -26,13 +26,13 @@ namespace Desafio3___BackEnd
                         linhas++;
                         var linha = produtos.ReadLine();
                         var campos = linha.Split(",");
-                        var nome = campos[0];
+                        var nome = campos[0].Trim();
                         if (string.IsNullOrEmpty(nome)) throw new NomeInvalidoException();
-                        var preco = campos[1].Replace(".", ",");
+                        var preco = campos[1].Replace(".", ",").Trim();
                         if (string.IsNullOrEmpty(preco)) throw new PrecoVazioException();
-                        var categoria = campos[2];
+                        var categoria = campos[2].Trim();
                         if (string.IsNullOrEmpty(categoria)) throw new CategoriaVaziaException();
-                        var extra = campos[3];
+                        var extra = campos[3].Trim();
                         if (campos.Length > 4) throw new CampoAMais();
                         var precoD = double.Parse(preco);
 
@@ -72,13 +72,13 @@ namespace Desafio3___BackEnd
                 sw.WriteLine(novoConteudo);
                 
                 var campos = novoConteudo.Split(",");
-                var nome = campos[0];
+                var nome = campos[0].Trim();
                 if (string.IsNullOrEmpty(nome)) throw new NomeInvalidoException();
                 var preco = campos[1].Replace(".", ",");
                 if (string.IsNullOrEmpty(preco)) throw new PrecoVazioException();
-                var categoria = campos[2];
+                var categoria = campos[2].Trim();
                 if (string.IsNullOrEmpty(categoria)) throw new CategoriaVaziaException();
-                var extra = campos[3];
+                var extra = campos[3].Trim();
                 if (campos.Length > 4) throw new CampoAMais();
                 var precoD = double.Parse(preco);
 
@@ -250,7 +250,7 @@ namespace Desafio3___BackEnd
 
         }
 
-        internal static void RemoverDados(string arquivo)
+        internal static void RemoverDados(string arquivo, List<Produtos> lista)
         {
             string palavra = "";
             List<string> linhas = new List<string>(File.ReadAllLines(arquivo));
@@ -258,6 +258,7 @@ namespace Desafio3___BackEnd
             palavra = Console.ReadLine();
 
             int removidas = linhas.RemoveAll(linha => linha.Contains(palavra));
+            lista.RemoveAll(p => p.Nome.Contains(palavra));
 
             if (removidas > 0)
             {
