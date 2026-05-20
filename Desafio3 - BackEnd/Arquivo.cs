@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Desafio3___BackEnd
 {
-    public class Arquivo
+    public  class Arquivo
     {
+        
         public static List<Produtos> abrirArquivo(string arquivo)
         {
             List<Produtos> prod = new List<Produtos>();
@@ -34,10 +35,11 @@ namespace Desafio3___BackEnd
                         var extra = campos[3];
                         if (campos.Length > 4) throw new CampoAMais();
                         var precoD = double.Parse(preco);
-                        
+
                         if (precoD < 0) throw new PrecoNegativoException();
-                        
+
                         prod.Add(new Produtos(nome, precoD, categoria, extra));
+                        
                     }
                     catch (NomeInvalidoException)
                     {
@@ -62,14 +64,29 @@ namespace Desafio3___BackEnd
         }
 
         // Inserção de dados no file;
-        public static void InserirDados(string arquivo)
+        public static List<Produtos> InserirDados(string arquivo, List<Produtos> lista)
         {
             string novoConteudo = Console.ReadLine();
             using (StreamWriter sw = new StreamWriter(arquivo, append: true))
             {
                 sw.WriteLine(novoConteudo);
                 
+                var campos = novoConteudo.Split(",");
+                var nome = campos[0];
+                if (string.IsNullOrEmpty(nome)) throw new NomeInvalidoException();
+                var preco = campos[1].Replace(".", ",");
+                if (string.IsNullOrEmpty(preco)) throw new PrecoVazioException();
+                var categoria = campos[2];
+                if (string.IsNullOrEmpty(categoria)) throw new CategoriaVaziaException();
+                var extra = campos[3];
+                if (campos.Length > 4) throw new CampoAMais();
+                var precoD = double.Parse(preco);
+
+                if (precoD < 0) throw new PrecoNegativoException();
+
+                lista.Add(new Produtos(nome, precoD, categoria, extra));
             }
+            return lista;
         }
 
         /// <summary>
@@ -109,6 +126,12 @@ namespace Desafio3___BackEnd
                     {
                         if (palavra == item.Nome)
                         {
+                            if(double.Parse(novoPreco) < 0)
+                            {
+                                Console.WriteLine("Preço não pode ser negativo");
+                                break;
+                            }
+
                             var aux = 0.0;
                             aux = item.Preco;
                             item.Preco = double.Parse(novoPreco);

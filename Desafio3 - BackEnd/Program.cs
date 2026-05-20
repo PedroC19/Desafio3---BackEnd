@@ -34,7 +34,7 @@ namespace Desafio3___BackEnd
                 switch (Console.ReadLine())
                 {
                     case "1": Arquivo.Imprimir(lista); break;
-                    case "2": Arquivo.InserirDados(arquivo); break;
+                    case "2": lista = Arquivo.InserirDados(arquivo, lista); break;
                     case "3": Arquivo.alterarDados(arquivo, lista); break;
                     case "4": Arquivo.RemoverDados(arquivo); break;
                     case "5": Arquivo.Relatorio(lista); break;

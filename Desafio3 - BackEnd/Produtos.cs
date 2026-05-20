@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace Desafio3___BackEnd
@@ -30,5 +31,8 @@ namespace Desafio3___BackEnd
         {
            Estoque++;
         }
+
+       
+        
     }
 }
