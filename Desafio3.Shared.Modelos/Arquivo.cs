@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Desafio3___BackEnd
+namespace Desafio3.Shared.Modelos
 {
     public  class Arquivo
     {
@@ -34,7 +34,7 @@ namespace Desafio3___BackEnd
                         if (string.IsNullOrEmpty(categoria)) throw new CategoriaVaziaException();
                         var extra = campos[3].Trim();
                         if (campos.Length > 4) throw new CampoAMais();
-                        var precoD = double.Parse(preco);
+                        var precoD = decimal.Parse(preco);
 
                         if (precoD < 0) throw new PrecoNegativoException();
 
@@ -80,7 +80,7 @@ namespace Desafio3___BackEnd
                 if (string.IsNullOrEmpty(categoria)) throw new CategoriaVaziaException();
                 var extra = campos[3].Trim();
                 if (campos.Length > 4) throw new CampoAMais();
-                var precoD = double.Parse(preco);
+                var precoD = decimal.Parse(preco);
 
                 if (precoD < 0) throw new PrecoNegativoException();
 
@@ -100,7 +100,7 @@ namespace Desafio3___BackEnd
         /// <param name="arquivo">recebe o caminho do arquivo</param>
         /// <param name="lista">recebe a lista criada de produtos</param>
 
-        internal static void alterarDados(string arquivo, List<Produtos> lista)
+        public static void alterarDados(string arquivo, List<Produtos> lista)
         {
             Console.WriteLine("Qual produto gostaria de alterar?");
                 string palavra = Console.ReadLine();
@@ -128,15 +128,15 @@ namespace Desafio3___BackEnd
                     {
                         if (palavra == item.Nome)
                         {
-                            if(double.Parse(novoPreco) < 0)
+                            if(decimal.Parse(novoPreco) < 0)
                             {
                                 Console.WriteLine("Preço não pode ser negativo");
                                 break;
                             }
 
-                            var aux = 0.0;
+                            decimal? aux = 0;
                             aux = item.Preco;
-                            item.Preco = double.Parse(novoPreco);
+                            item.Preco = decimal.Parse(novoPreco);
                         }
                     }
                     break;
@@ -178,7 +178,7 @@ namespace Desafio3___BackEnd
             }
         }
 
-        internal static void Imprimir(List<Produtos> lista)
+        public static void Imprimir(List<Produtos> lista)
         {
             Console.WriteLine("Selecione uma Opção para realizar a pesquisa:");
             Console.WriteLine("== Lista ==");
@@ -217,7 +217,7 @@ namespace Desafio3___BackEnd
                     string preco = Console.ReadLine();
                     foreach (var item in lista.DistinctBy(p => p.Nome))
                     {
-                        if (item.Preco == double.Parse(preco))
+                        if (item.Preco == decimal.Parse(preco))
                         {
                             Console.WriteLine("========================================");
                             Console.WriteLine($"Nome do Produto: {item.Nome}");
@@ -250,7 +250,7 @@ namespace Desafio3___BackEnd
 
         }
 
-        internal static void RemoverDados(string arquivo, List<Produtos> lista)
+        public static void RemoverDados(string arquivo, List<Produtos> lista)
         {
             string palavra = "";
             List<string> linhas = new List<string>(File.ReadAllLines(arquivo));
@@ -272,7 +272,7 @@ namespace Desafio3___BackEnd
             }
         }
 
-        internal static void Relatorio(List<Produtos> lista)
+        public static void Relatorio(List<Produtos> lista)
         {
             
             var caminhoNovoArquivo = "C:/Users/pedro.colla/Desktop/Desafio 3/Relatorio.Txt";
@@ -362,4 +362,5 @@ namespace Desafio3___BackEnd
 }
 
       
+
 

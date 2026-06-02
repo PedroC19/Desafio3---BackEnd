@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Desafio3.Shared.Dados;
+using Desafio3.Shared.Modelos;
 
 namespace Desafio3___BackEnd
 {

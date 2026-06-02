@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Desafio3___BackEnd
+namespace Desafio3.Shared.Modelos
+
 {
 
     public class NomeInvalidoException() : Exception

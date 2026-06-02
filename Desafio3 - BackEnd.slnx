@@ -1,3 +1,6 @@
 <Solution>
   <Project Path="Desafio3 - BackEnd/Desafio3 - BackEnd.csproj" />
+  <Project Path="Desafio3.API/Desafio3.API.csproj" Id="be0abc43-1fc1-48e1-905c-b8de83a56a89" />
+  <Project Path="Desafio3.Shared.Dados/Desafio3.Shared.Dados.csproj" Id="fd844fcd-473e-4127-95c3-b17ce6c13172" />
+  <Project Path="Desafio3.Shared.Modelos/Desafio3.Shared.Modelos.csproj" Id="dd474f6d-5736-4d7d-b465-f1fc7e115473" />
 </Solution>
