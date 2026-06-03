@@ -5,6 +5,7 @@ using Desafio3.Shared.Modelos;
 using Microsoft.AspNetCore.Mvc;
 using ScreenSound.API.Requests;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Desafio3.API.Endpoints;
 
@@ -94,7 +95,7 @@ public static class ArquivoExtensions
             return Results.NoContent();
         });
         // Atualiza o Item da Lista
-        app.MapPut("/Artistas", ([FromServices] DAL<Produtos> dal, [FromBody] ProdutosRequestEdit produtosRequestEdit) => {
+        app.MapPut("/Lista", ([FromServices] DAL<Produtos> dal, [FromBody] ProdutosRequestEdit produtosRequestEdit) => {
             var produtoAtualizar = dal.RecuperarPor(a => a.Id == produtosRequestEdit.Id);
             if (produtoAtualizar is null)
             {
@@ -108,7 +109,48 @@ public static class ArquivoExtensions
             return Results.Ok();
         });
 
-        // Tem que descobrir como fazer o relatorio:
+        app.MapGet("/Relatorio", ([FromServices] DAL<Produtos> dal, string? categoria) =>
+        {
+            var lista = dal.Listar();
+
+            if (!string.IsNullOrEmpty(categoria))
+            {
+                lista = lista.Where(p => p.Categoria == categoria);
+            }
+
+            var sb = new StringBuilder();
+
+            sb.AppendLine("========================================");
+
+            foreach (var item in lista.DistinctBy(p => p.Nome))
+            {
+                int estoque = lista.Count(p => p.Nome == item.Nome);
+
+                sb.AppendLine(
+                    $"Nome: {item.Nome} | Preço: {item.Preco:C} | Estoque: {estoque}"
+                );
+            }
+
+            sb.AppendLine("========================================");
+
+            var produtosDistintos = lista.DistinctBy(p => p.Nome);
+
+            if (produtosDistintos.Any())
+            {
+                var maisCaro = produtosDistintos.MaxBy(p => p.Preco);
+                var precoMedio = produtosDistintos.Average(p => p.Preco);
+
+                sb.AppendLine(
+                    $"Produto mais caro: {maisCaro!.Nome} - {maisCaro.Preco:C}"
+                );
+
+                sb.AppendLine(
+                    $"Preço médio: {precoMedio:C}"
+                );
+            }
+
+            return Results.Text(sb.ToString(), "text/plain");
+        });
     }
 
     private static ICollection<ProdutoResponse> EntityListToResponseList(IEnumerable<Produtos> listadeProdtuos)
