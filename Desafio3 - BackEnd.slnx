@@ -3,5 +3,5 @@
   <Project Path="Desafio3.API/Desafio3.API.csproj" />
   <Project Path="Desafio3.Shared.Dados/Desafio3.Shared.Dados.csproj" />
   <Project Path="Desafio3.Shared.Modelos/Desafio3.Shared.Modelos.csproj" />
-  <Project Path="Desafio3.Web/Desafio3.Web.csproj" />
+  <Project Path="Desafio3.Web/Desafio3.Web.csproj" Id="ec570ec3-2a20-40b5-b023-d086a232561d" />
 </Solution>

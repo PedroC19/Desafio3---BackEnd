@@ -10,8 +10,9 @@ public class Desafio3Context : DbContext
 {
     public DbSet<Produtos> Produtos { get; set; }
 
-    private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaProdutos;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30";
+    //private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaProdutos;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30";
 
+    private string connectionString = "Data Source=desafioalura.database.windows.net,1433;Initial Catalog=Desafio_Alura;User ID=pedroAdm;Password=********;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30;";
     public Desafio3Context()
     {
 
