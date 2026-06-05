@@ -1,0 +1,10 @@
+===================================================================================
+Nome do Produto: Jaqueta Corta-Vento, Preço do produto: 149,9, Quantidade em Estoque: 9
+-----------------------------------------------------------------------------------
+Nome do Produto: Camiseta Basica Branca, Preço do produto: 49,9, Quantidade em Estoque: 11
+-----------------------------------------------------------------------------------
+Nome do Produto: Calca Jeans Slim, Preço do produto: 119,9, Quantidade em Estoque: 7
+===================================================================================
+Produto mais caro: Jaqueta Corta-Vento com preço: 149,9
+Preço Médio: 106,57
+===================================================================================

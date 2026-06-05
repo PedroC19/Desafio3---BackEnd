@@ -16,9 +16,6 @@ namespace Desafio3.Shared.Modelos
 
         public string? Extra { get; set; }
 
-        //public int _estoque;
-        //public int Estoque { get; set; }
-
         public Produtos()
         {
 
@@ -31,9 +28,5 @@ namespace Desafio3.Shared.Modelos
             Extra = extra;
         }
 
-        //public void AumentaEstoque()
-        //{
-        //    Estoque++;
-        //}
     }
 }

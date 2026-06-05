@@ -8,7 +8,7 @@ namespace Desafio3.Shared.Modelos
 
     public class NomeInvalidoException() : Exception
     {
-        
+
     }
 
     public class ValorInválidoException() : Exception 

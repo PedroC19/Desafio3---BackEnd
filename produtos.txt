@@ -1,5 +1,5 @@
-Nome,Preco,Categoria,Extra
-Bolsa Transversal,119.5,Acessorios,
+Nome, Preco, Categoria, Extra
+Bolsa Transversal,119.50,Acessorios,
 Relogio Analogico,299.99,Acessorios,
 Mochila Urbana,89.9,Acessorios,
 Occhulos de Sol Aviador,89.9,Acessorios,
@@ -92,3 +92,7 @@ Calca Jeans Slim,119.9,Vestuario,
 Relogio Analogico,299.99,Acessorios,
 batata,10,Comida,teste adicao
 Fries,25,Comida,teste remocao espaços
+Jaqueta de Couro bacana, 1000.00, Vestuario, Irada
+Jaqueta De Couro Irada, 10000.00, Vestuario, Irado
+Camiseta Kleiton, 400.50, Vestuario, Bom de Guerra
+Potato Potato, 20, Comida, batata batata

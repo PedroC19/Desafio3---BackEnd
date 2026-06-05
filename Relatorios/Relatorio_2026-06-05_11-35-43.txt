@@ -1,0 +1,33 @@
+===================================================================================
+Nome do Produto: Bolsa Transversal, Preço do produto: 119,5, Quantidade em Estoque: 11
+-----------------------------------------------------------------------------------
+Nome do Produto: Relogio Analogico, Preço do produto: 299,99, Quantidade em Estoque: 9
+-----------------------------------------------------------------------------------
+Nome do Produto: Mochila Urbana, Preço do produto: 89,9, Quantidade em Estoque: 6
+-----------------------------------------------------------------------------------
+Nome do Produto: Occhulos de Sol Aviador, Preço do produto: 89,9, Quantidade em Estoque: 12
+-----------------------------------------------------------------------------------
+Nome do Produto: Jaqueta Corta-Vento, Preço do produto: 149,9, Quantidade em Estoque: 9
+-----------------------------------------------------------------------------------
+Nome do Produto: Bone Estiloso, Preço do produto: 39,9, Quantidade em Estoque: 8
+-----------------------------------------------------------------------------------
+Nome do Produto: Tenis Esportivo, Preço do produto: 199,9, Quantidade em Estoque: 9
+-----------------------------------------------------------------------------------
+Nome do Produto: Fone de Ouvido, Preço do produto: 179,9, Quantidade em Estoque: 7
+-----------------------------------------------------------------------------------
+Nome do Produto: Camiseta Basica Branca, Preço do produto: 49,9, Quantidade em Estoque: 11
+-----------------------------------------------------------------------------------
+Nome do Produto: Calca Jeans Slim, Preço do produto: 119,9, Quantidade em Estoque: 7
+-----------------------------------------------------------------------------------
+Nome do Produto: Aspas"Erradas, Preço do produto: 75, Quantidade em Estoque: 1
+-----------------------------------------------------------------------------------
+Nome do Produto: ErroVirgula, Preço do produto: 60, Quantidade em Estoque: 1
+-----------------------------------------------------------------------------------
+Nome do Produto: batata, Preço do produto: 10, Quantidade em Estoque: 1
+-----------------------------------------------------------------------------------
+Nome do Produto: Fries, Preço do produto: 25, Quantidade em Estoque: 1
+-----------------------------------------------------------------------------------
+===================================================================================
+Produto mais caro: Relogio Analogico com preço: 299,99
+Preço Médio: 107,76
+===================================================================================

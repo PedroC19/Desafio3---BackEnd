@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Desafio3.Shared.Dados;
 using Desafio3.Shared.Modelos;
+using Desafio3___BackEnd.Metodos;
 
 namespace Desafio3___BackEnd
 {
@@ -14,9 +15,7 @@ namespace Desafio3___BackEnd
     {
         static void Main(string[] args)
         {
-
-            // abre o arquivo
-            var arquivo = "C:\\Users\\pedro.colla\\Desktop\\Desafio\\Desafio3---BackEnd\\produtos.txt";
+            var arquivo = "C:\\Users\\pedro.colla\\Desktop\\Git\\Desafio3---BackEnd\\produtos.txt";
 
             List<Produtos> lista = new List<Produtos>();
             lista = Arquivo.abrirArquivo(arquivo);
@@ -35,17 +34,15 @@ namespace Desafio3___BackEnd
 
                 switch (Console.ReadLine())
                 {
-                    case "1": Arquivo.Imprimir(lista); break;
-                    case "2": lista = Arquivo.InserirDados(arquivo, lista); break;
-                    case "3": Arquivo.alterarDados(arquivo, lista); break;
-                    case "4": Arquivo.RemoverDados(arquivo, lista); break;
-                    case "5": Arquivo.Relatorio(lista); break;
+                    case "1": Imprimir.ImprimirDados(lista); break;
+                    case "2": lista = Insercao.InserirDados(arquivo, lista); break;
+                    case "3": Alterar.alterarDados(arquivo, lista); break;
+                    case "4": Remocao.RemoverDados(arquivo, lista); break;
+                    case "5": EscreverRelatorio.Relatorio(lista); break;
                     case "0": return;
                     default: Console.WriteLine("Opção inválida."); break;
                 }
             }
-
-            Console.ReadLine();
         }
     }
 
