@@ -16,9 +16,15 @@ public class DAL<T> where T : class
         this.context = context;
     }
 
+
     public IEnumerable<T> Listar()
     {
         return context.Set<T>().ToList();
+    }
+
+    public IEnumerable<T> Listar(Func<T, bool> filtro)
+    {
+        return context.Set<T>().Where(filtro).ToList();
     }
     public void Adicionar(T objeto)
     {

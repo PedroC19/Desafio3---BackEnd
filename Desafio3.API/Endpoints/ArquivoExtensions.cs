@@ -1,4 +1,5 @@
-﻿using Desafio3.API.Requests;
+﻿using Desafio3.API.Metodos;
+using Desafio3.API.Requests;
 using Desafio3.API.Response;
 using Desafio3.Shared.Dados;
 using Desafio3.Shared.Modelos;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ScreenSound.API.Requests;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static Desafio3.API.Metodos.MetodoGet;
 
 namespace Desafio3.API.Endpoints;
 
@@ -23,144 +25,32 @@ public static class ArquivoExtensions
     public static void AddEndPointsProdutos(this WebApplication app)
     {
         // Lista todos os Items do Banco de Dados
-        app.MapGet("/Lista", ([FromServices] DAL<Produtos> dal) => 
-        {
-            var listadeProdutos = dal.Listar();
-            if (listadeProdutos is null)
-            {
-                return Results.NotFound();
-            }
-            var listaDeArtistaResponse = EntityListToResponseList(listadeProdutos);
-            return Results.Ok(listaDeArtistaResponse);
-        });
+        app.MapGet("/Lista", MetodoGet.EndPointGetLista);
 
         // Lista todos os Items que possuem a palavra no Nome;
-        app.MapGet("/Lista1/{nome}", ([FromServices] DAL<Produtos> dal, string nome) =>
-        {
-            var produtos = dal.Listar()
-                 .Where(p => p.Nome.Contains(nome)) // Contains recupera strings que tem a palavra, não precisando ser a string inteira (exemplo jaqueta --> Jaqueta de Couro)
-                 .ToList();
-
-            return Results.Ok(EntityListToResponseList(produtos));
-
-        });
+        app.MapGet("/Lista1/{nome}", MetodoGet.EndPointGetListaNome);
 
         // Lista todos os Items que possuem mesmo valor;
-        app.MapGet("/Lista2/{preco}", ([FromServices] DAL<Produtos> dal, decimal preco) =>
-        {
-            var produtos = dal.Listar()
-                  .Where(p => p.Preco.Equals(preco)) // Equals recupera apenas a igualdade, tendo que ser 1:1
-                  .ToList();
+        app.MapGet("/Lista2/{preco}", MetodoGet.EndPointGetListaPreco);
 
-            return Results.Ok(EntityListToResponseList(produtos));
+        // Lista todos os items que possuem mesma categoria;
+        app.MapGet("/Lista3/{categoria}", MetodoGet.EndPointGetListaCategoria);
 
-        });
-
-        // Lista todos os Items que possuem mesma categoria
-        app.MapGet("/Lista3/{categoria}", ([FromServices] DAL<Produtos> dal, string categoria) =>
-        {
-            var produtos = dal.Listar()
-                 .Where(p => p.Categoria.Contains(categoria)) // Contains recupera strings que tem a palavra, não precisando ser a string inteira (exemplo jaqueta --> Jaqueta de Couro)
-                 .ToList();
-
-            return Results.Ok(EntityListToResponseList(produtos));
-        });
         // Lista quantidade de items no bd
-        app.MapGet("/ListaContagem", ([FromServices] Desafio3Context context) =>
-        {
-            var quantidade = context.Produtos.Count();
+        app.MapGet("/ListaContagem", MetodoGet.EndPointGetListaContagem);
+        
+        // Gera Relatorio com todos os dados
+        app.MapGet("/Relatorio", MetodoGet.EndPointGetRelatorio);
 
-            return Results.Ok(new
-            {
-                Quantidade = quantidade
-            });
-        });
         // Adiciona um novo item no bd
-        app.MapPost("/Lista", ([FromServices] DAL<Produtos> dal, [FromBody] ProdutosRequest produtosRequest) =>
-        {
-            var artista = new Produtos(produtosRequest.nome, produtosRequest.preco, produtosRequest.categoria, produtosRequest.extra);
+        app.MapPost("/Lista", MetodoPost.EndPointPostAdiciona);
 
-            dal.Adicionar(artista);
-            return Results.Ok();
-        });
+        // Atualiza o Item da Lista
+        app.MapPut("/Lista", MetodoPut.EndPointPutAtualiza);
 
         // deleta um item do BD
-        app.MapDelete("/Lista/{id}", ([FromServices] DAL<Produtos> dal, string nome) => {
-            var artista = dal.RecuperarPor(a => a.Nome == nome);
-            if (artista is null)
-            {
-                return Results.NotFound();
-            }
-            dal.Deletar(artista);
-            return Results.NoContent();
-        });
-        // Atualiza o Item da Lista
-        app.MapPut("/Lista", ([FromServices] DAL<Produtos> dal, [FromBody] ProdutosRequestEdit produtosRequestEdit) => {
-            var produtoAtualizar = dal.RecuperarPor(a => a.Id == produtosRequestEdit.Id);
-            if (produtoAtualizar is null)
-            {
-                return Results.NotFound();
-            }
-            produtoAtualizar.Nome = produtosRequestEdit.nome;
-            produtoAtualizar.Preco = produtosRequestEdit.preco;
-            produtoAtualizar.Categoria = produtosRequestEdit.categoria;
-            produtoAtualizar.Extra = produtosRequestEdit.extra;
-            dal.Atualizar(produtoAtualizar);
-            return Results.Ok();
-        });
+        app.MapDelete("/Lista/{id}", MetodoDelete.EndPointDeleteRemove);
 
-        app.MapGet("/Relatorio", ([FromServices] DAL<Produtos> dal, string? categoria) =>
-        {
-            var lista = dal.Listar();
-
-            if (!string.IsNullOrEmpty(categoria))
-            {
-                lista = lista.Where(p => p.Categoria == categoria);
-            }
-
-            var sb = new StringBuilder();
-
-            sb.AppendLine("========================================");
-
-            foreach (var item in lista.DistinctBy(p => p.Nome))
-            {
-                int estoque = lista.Count(p => p.Nome == item.Nome);
-
-                sb.AppendLine(
-                    $"Nome: {item.Nome} | Preço: {item.Preco:C} | Estoque: {estoque}"
-                );
-            }
-
-            sb.AppendLine("========================================");
-
-            var produtosDistintos = lista.DistinctBy(p => p.Nome);
-
-            if (produtosDistintos.Any())
-            {
-                var maisCaro = produtosDistintos.MaxBy(p => p.Preco);
-                var precoMedio = produtosDistintos.Average(p => p.Preco);
-
-                sb.AppendLine(
-                    $"Produto mais caro: {maisCaro!.Nome} - {maisCaro.Preco:C}"
-                );
-
-                sb.AppendLine(
-                    $"Preço médio: {precoMedio:C}"
-                );
-            }
-
-            return Results.Text(sb.ToString(), "text/plain");
-        });
-    }
-
-    private static ICollection<ProdutoResponse> EntityListToResponseList(IEnumerable<Produtos> listadeProdtuos)
-    {
-        return listadeProdtuos.Select(a => EntityToResponse(a)).ToList();
-    }
-
-    private static ProdutoResponse EntityToResponse(Produtos produtos)
-    {
-        return new ProdutoResponse(produtos.Nome, produtos.Preco, produtos.Categoria, produtos.Extra);
     }
 
 }
